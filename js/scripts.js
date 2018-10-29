@@ -46,9 +46,8 @@ function displayTaskDetails(todoListToDisplay) {
     var tasksList = $("ul#tasks");
     var htmlForTaskInfo = "";
     todoListToDisplay.tasks.forEach(function(task){
-        htmlForTaskInfo += "<li id=" + task.id + ">" + task.task+ " " + task.dueDate + " " + task.priority + "<button class='btn btn-success deleteButton' id=" + + task.id + ">Done</button></li>";
-        var buttons = $("#buttons");
-        buttons.empty();
+        htmlForTaskInfo += "<li id=" + task.id + ">" + task.task+ " " + task.dueDate + " " + task.priority + "</li>";
+        
     });
     tasksList.html(htmlForTaskInfo);
 };
@@ -62,7 +61,10 @@ function showTask(taskId){
     
 }
 function attachTaskListeners(){
-    
+    $("ul#tasks").on("click", "li", function(){
+        $(this).toggleClass("strike-through")
+    })
+
     $("ul#tasks").on("click", ".deleteButton", function(){
         todoList.deleteTask(this.id);
         $("#show-task").hide();
@@ -75,15 +77,18 @@ $(document).ready(function(){
         event.preventDefault();
         var inputtedTask = $("input#task").val();
         var inputtedDueDate = $("input#due-date").val();
-        var inputtedPriority = $("input#priority").val();
-
+        var inputtedPriority = $("select").children("option:selected").val();
+        
         $("input#task").val("");
         $("input#due-date").val("");
-        $("input#priority").val("");
 
         var newTask = new Task(inputtedTask, inputtedDueDate, inputtedPriority);
         todoList.addTask(newTask);
         displayTaskDetails(todoList);
 
-    })
-})
+        $("li:contains('high')").css('background-color','pink');
+        $("li:contains('medium')").css('background-color','yellow');
+        $("li:contains('low')").css('background-color','green').css('color', 'white');
+    });
+
+});

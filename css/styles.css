@@ -6,6 +6,12 @@
    
 }
 li {
+    font-weight: bold;
+    margin: 5px;
     width: 100%;
     float: left;
+}
+
+.strike-through {
+    text-decoration: line-through;
 }
