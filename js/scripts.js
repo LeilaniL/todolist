@@ -46,7 +46,9 @@ function displayTaskDetails(todoListToDisplay) {
     var tasksList = $("ul#tasks");
     var htmlForTaskInfo = "";
     todoListToDisplay.tasks.forEach(function(task){
-        htmlForTaskInfo += "<li id=" + task.id + ">" + task.task+ " " + task.dueDate + " " + task.priority + "</li>";
+        htmlForTaskInfo += "<li id=" + task.id + ">" + task.task+ " " + task.dueDate + " " + task.priority + "<button class='btn btn-success deleteButton' id=" + + task.id + ">Done</button></li>";
+        var buttons = $("#buttons");
+        buttons.empty();
     });
     tasksList.html(htmlForTaskInfo);
 };
@@ -57,12 +59,11 @@ function showTask(taskId){
     $(".task").html(task.task);
     $(".due-date").html(task.dueDate);
     $(".priority").html(task.priority);
-    var buttons = $("#buttons");
-    buttons.empty();
-    buttons.append("<button class='deleteButton' id=" + + task.id + ">Delete</button>");
+    
 }
 function attachTaskListeners(){
-    $("ul#tasks").on("click", "li", function(){
+    
+    $("ul#tasks").on("click", ".deleteButton", function(){
         todoList.deleteTask(this.id);
         $("#show-task").hide();
         displayTaskDetails(todoList);
@@ -72,9 +73,9 @@ $(document).ready(function(){
     attachTaskListeners();
     $("form#new-task").submit(function(event){
         event.preventDefault();
-        var inputtedTask=$("input#task").val();
-        var inputtedDueDate=$("input#due-date").val();
-        var inputtedPriority=$("input#priority").val();
+        var inputtedTask = $("input#task").val();
+        var inputtedDueDate = $("input#due-date").val();
+        var inputtedPriority = $("input#priority").val();
 
         $("input#task").val("");
         $("input#due-date").val("");

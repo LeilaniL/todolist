@@ -1,0 +1,11 @@
+#show-task {
+    display: none;
+}
+.deleteButton {
+    margin-left: 30px;
+   
+}
+li {
+    width: 100%;
+    float: left;
+}
